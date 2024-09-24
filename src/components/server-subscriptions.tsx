@@ -3,6 +3,7 @@ import {
   Grid,
   NumberInput,
   Paper,
+  Select,
   Text,
   TextInput,
   Title,
@@ -81,10 +82,15 @@ export default function ServerSubscriptions() {
               <TextInput label="Topic" {...form.getInputProps("topic")} />
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 6 }}>
-              <NumberInput
-                label="QoS (Quality of Service)"
-                min={0}
-                max={2}
+              <Select
+                label="QoS (Quality of Service"
+                data={[
+                  { value: "0", label: "0 - At most once" },
+                  { value: "1", label: "1 - At least once" },
+                  { value: "2", label: "2 - Exactly once" },
+                ]}
+                allowDeselect={false}
+                defaultValue={"0"}
                 {...form.getInputProps("qos")}
               />
             </Grid.Col>
