@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/message-history.tsx","./src/components/server-connection.tsx","./src/components/server-messages.tsx","./src/components/server-subscriptions.tsx","./src/components/subscriptions-list.tsx","./src/components/ui/icons.tsx","./src/store/mqttclient.ts"],"version":"5.6.2"}
