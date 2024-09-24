@@ -1,7 +1,6 @@
 import {
   Button,
   Grid,
-  NumberInput,
   Paper,
   Select,
   Text,
@@ -21,6 +20,10 @@ export default function ServerSubscriptions() {
       topic: "",
       qos: 0,
     },
+    validate: {
+      topic: (value) =>
+        value.length > 3 ? null : "Provide a topic with at least 3 characters.",
+    },
   });
   const client = useMqttClient((state) => state.client);
   const subscriptions = useMqttClient((state) => state.subscriptions);
@@ -31,7 +34,7 @@ export default function ServerSubscriptions() {
 
     const { topic, qos } = form.values;
     const isAlreadySubscribed = subscriptions.find(
-      (subscription) => subscription.topic === topic
+      (subscription) => subscription.topic === topic,
     );
 
     if (isAlreadySubscribed) {
@@ -49,6 +52,8 @@ export default function ServerSubscriptions() {
     }
 
     if (client) {
+      // The QoS options requires to import `mqtt-packet` to use the `QoS` type.
+      // Currently not being used.
       client.subscribe(topic, (err) => {
         if (err) {
           throw new Error(err.message);
@@ -65,6 +70,7 @@ export default function ServerSubscriptions() {
         });
       });
     }
+    form.reset();
     loadingSubscribeActions.close();
   };
 
@@ -79,11 +85,16 @@ export default function ServerSubscriptions() {
         <form onSubmit={form.onSubmit(handleSubscribe)}>
           <Grid>
             <Grid.Col span={{ base: 12, sm: 6 }}>
-              <TextInput label="Topic" {...form.getInputProps("topic")} />
+              <TextInput
+                label="Topic"
+                {...form.getInputProps("topic")}
+                required
+              />
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 6 }}>
               <Select
-                label="QoS (Quality of Service"
+                label="QoS (Quality of Service)"
+                placeholder="Optional"
                 data={[
                   { value: "0", label: "0 - At most once" },
                   { value: "1", label: "1 - At least once" },

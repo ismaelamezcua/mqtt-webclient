@@ -1,11 +1,13 @@
 import { memo } from "react";
-import { useMqttClient } from "../store/mqttClient";
+import { Actions, State, useMqttClient } from "../store/mqttClient";
 import { Box, Timeline, Title, Text, Button } from "@mantine/core";
 import { IconChevronRight, IconMessageX } from "./ui/icons";
 
 export const MessageHistory = memo(function MessageHistory() {
-  const messages = useMqttClient((state) => state.messages);
-  const clearMessages = useMqttClient((state) => state.clearMessages);
+  const messages = useMqttClient((state: State & Actions) => state.messages);
+  const clearMessages = useMqttClient(
+    (state: State & Actions) => state.clearMessages,
+  );
 
   return (
     <Box my="xl">
