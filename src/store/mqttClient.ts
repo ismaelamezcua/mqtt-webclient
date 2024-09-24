@@ -2,23 +2,23 @@ import { MqttClient } from "mqtt";
 import { create } from "zustand";
 
 export type Message = {
-  message: string,
-  topic: string,
-  timestamp: string,
+  message: string;
+  topic: string;
+  timestamp: string;
 };
 
 export type Subscription = {
-  topic: string,
-  qos: number,
+  topic: string;
+  qos: number;
 };
 
-type State = {
+export type State = {
   client: MqttClient | undefined;
   subscriptions: Subscription[];
   messages: Message[];
 };
 
-type Actions = {
+export type Actions = {
   clientConnect: (client: MqttClient) => void;
   clientDisconnect: () => void;
   addSubscription: (subscription: Subscription) => void;
@@ -32,28 +32,34 @@ export const useMqttClient = create<State & Actions>((set, get) => ({
   client: undefined,
   subscriptions: [],
   messages: [],
-  clientConnect: (client) => { set({ client: client }) },
-  clientDisconnect: () => { set({ client: undefined }) },
-  addSubscription: (subscription) => {
-    set((state) => ({
-      subscriptions: [
-        ...state.subscriptions,
-        subscription as Subscription,
-      ],
+  clientConnect: (client: MqttClient) => {
+    set({ client: client });
+  },
+  clientDisconnect: () => {
+    set({ client: undefined });
+  },
+  addSubscription: (subscription: Subscription) => {
+    set((state: State) => ({
+      subscriptions: [...state.subscriptions, subscription as Subscription],
     }));
   },
-  removeSubscription: (topic) => {
+  removeSubscription: (topic: string) => {
     const { subscriptions } = get();
-    set({ subscriptions: subscriptions.filter(subscription => subscription.topic != topic) });
+    set({
+      subscriptions: subscriptions.filter(
+        (subscription: Subscription) => subscription.topic != topic,
+      ),
+    });
   },
-  clearSubscriptions: () => { set({ subscriptions: [] }) },
-  addMessage: (message) => {
-    set((state) => ({
-      messages: [
-        ...state.messages,
-        message as Message,
-      ],
+  clearSubscriptions: () => {
+    set({ subscriptions: [] });
+  },
+  addMessage: (message: Message) => {
+    set((state: State) => ({
+      messages: [...state.messages, message as Message],
     }));
   },
-  clearMessages: () => { set(({ messages: [] })) }
+  clearMessages: () => {
+    set({ messages: [] });
+  },
 }));
