@@ -61,7 +61,7 @@ export const SubscriptionsList = memo(function SubscriptionsList() {
               leftSection={
                 <IconMessageX style={{ fill: theme.colors.red[5] }} />
               }
-              onClick={() => handleUnsubscribe(s.topic)}
+              onClick={() => handleUnsubscribe(topic)}
             >
               Unsubscribe
             </Button>

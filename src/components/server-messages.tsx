@@ -56,12 +56,6 @@ export default function ServerMessages() {
           <Grid>
             <Grid.Col span={{ base: 12, sm: 6 }}>
               <TextInput label="Topic" {...form.getInputProps("topic")} />
-              {/* <Select
-                label="Topic"
-                data={subscriptions.map((s) => s.topic)}
-                searchable
-                {...form.getInputProps("topic")}
-              /> */}
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 6 }}>
               <Select
