@@ -30,8 +30,8 @@ export const SubscriptionsList = memo(function SubscriptionsList() {
     }
   };
   const qosLevels = [
-    "0 - At least once",
-    "1 - At most once",
+    "0 - At most once",
+    "1 - At least once",
     "2 - Exactly once",
   ];
 
