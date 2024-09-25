@@ -56,7 +56,7 @@ export default function ServerMessages() {
         <form onSubmit={form.onSubmit(handlePublish)}>
           <Grid>
             <Grid.Col span={{ base: 12, sm: 6 }}>
-              <TextInput label="Topic" {...form.getInputProps("topic")} />
+              <TextInput label="Topic" {...form.getInputProps("topic")} required />
             </Grid.Col>
             <Grid.Col span={{ base: 12, sm: 6 }}>
               <Select
@@ -69,10 +69,11 @@ export default function ServerMessages() {
                 allowDeselect={false}
                 defaultValue={"0"}
                 {...form.getInputProps("qos")}
+                required
               />
             </Grid.Col>
             <Grid.Col span={12}>
-              <Textarea {...form.getInputProps("message")} />
+              <Textarea {...form.getInputProps("message")} required />
             </Grid.Col>
           </Grid>
           <Button
