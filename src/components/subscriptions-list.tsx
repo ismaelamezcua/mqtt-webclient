@@ -29,6 +29,11 @@ export const SubscriptionsList = memo(function SubscriptionsList() {
       });
     }
   };
+  const qosLevels = [
+    "0 - At least once",
+    "1 - At most once",
+    "2 - Exactly once",
+  ];
 
   return (
     <Box my="xl">
@@ -41,13 +46,13 @@ export const SubscriptionsList = memo(function SubscriptionsList() {
         bulletSize={18}
         active={subscriptions.length}
       >
-        {subscriptions.map((s) => (
-          <Timeline.Item key={s.topic} title={s.topic}>
+        {subscriptions.map(({ topic, qos }) => (
+          <Timeline.Item key={topic} title={topic}>
             <Text c="dimmed" size="sm">
-              Subscribed to <strong>{s.topic}</strong>
+              Subscribed to <strong>{topic}</strong>
             </Text>
             <Text size="xs" my={4}>
-              QoS: {s.qos}
+              QoS: {qosLevels[qos]}
             </Text>
             <Button
               variant="outline"
