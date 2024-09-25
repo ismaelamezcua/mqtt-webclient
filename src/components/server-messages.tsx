@@ -36,6 +36,7 @@ export default function ServerMessages() {
         loadingPublishActions.close();
 
         if (err) throw Error(err.message);
+        form.reset();
         notifications.show({
           title: <Title order={4}>Message published</Title>,
           message: <Text>The message was sent.</Text>,
