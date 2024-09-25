@@ -7,6 +7,7 @@ import {
   TextInput,
   Title,
 } from "@mantine/core";
+import { QoS } from "mqtt-packet";
 import { useMqttClient } from "../store/mqttClient";
 import { useForm } from "@mantine/form";
 import { IconChevronRight, IconServer } from "./ui/icons";
@@ -54,8 +55,9 @@ export default function ServerSubscriptions() {
     if (client) {
       // The QoS options requires to import `mqtt-packet` to use the `QoS` type.
       // Currently not being used.
-      client.subscribe(topic, (err) => {
+      client.subscribe(topic, { qos: Number(qos) as QoS }, (err) => {
         if (err) {
+          console.log(err);
           throw new Error(err.message);
         }
 
