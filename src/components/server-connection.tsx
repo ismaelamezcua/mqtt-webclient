@@ -20,6 +20,8 @@ import { useEffect } from "react";
 
 export default function ServerConnection() {
   const client = useMqttClient((state) => state.client);
+  const clearSubscriptions = useMqttClient((state) => state.clearSubscriptions);
+  const clearMessages = useMqttClient((state) => state.clearMessages);
   const clientConnect = useMqttClient((state) => state.clientConnect);
   const clientDisconnect = useMqttClient((state) => state.clientDisconnect);
   const addMessage = useMqttClient((state) => state.addMessage);
@@ -71,6 +73,8 @@ export default function ServerConnection() {
       client.end(false, {}, () => {
         loadingDisconnectActions.close();
         clientDisconnect();
+        clearSubscriptions();
+        clearMessages();
         notifications.show({
           title: <Title order={4}>Disconnected from server</Title>,
           message: (
