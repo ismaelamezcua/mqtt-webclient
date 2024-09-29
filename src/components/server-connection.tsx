@@ -30,8 +30,8 @@ export default function ServerConnection() {
       broker: "broker.emqx.io",
       port: 8083,
       clientId: `mqtt_${Math.random().toString(16).slice(3)}`,
-      username: "emqx_test",
-      password: "emqx_test",
+      username: "",
+      password: "",
     },
   });
   const [loadingConnect, loadingConnectActions] = useDisclosure(false);
@@ -101,7 +101,15 @@ export default function ServerConnection() {
       });
 
       client.on("error", (err) => {
-        console.error(`Error: ${err}`);
+        notifications.show({
+          title: <Title order={4}>Connection error</Title>,
+          message: (
+            <Text>
+              {err.message} at {err.stack}
+            </Text>
+          ),
+          color: "red",
+        });
       });
     }
   }, [client]);
@@ -118,7 +126,7 @@ export default function ServerConnection() {
         <Title order={5} mt="lg" mb="xs">
           Server configuration
         </Title>
-        <Paper shadow="sm" radius="sm" p="lg" bg="teal.0">
+        <Paper shadow="sm" radius="sm" p="lg" bg="blue.0">
           <form onSubmit={form.onSubmit(handleConnect)}>
             <Grid>
               <Grid.Col span={{ base: 12, sm: 4 }}>
@@ -159,7 +167,7 @@ export default function ServerConnection() {
               rightSection={<IconChevronRight style={{ fill: "white" }} />}
               loading={loadingConnect}
               mt="lg"
-              color="teal"
+              color="blue"
             >
               Connect
             </Button>
