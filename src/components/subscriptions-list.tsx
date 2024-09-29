@@ -19,12 +19,19 @@ export const SubscriptionsList = memo(function SubscriptionsList() {
   const handleUnsubscribe = (topic: string) => {
     if (client) {
       client.unsubscribe(topic, (err) => {
-        if (err) throw Error(err.message);
+        if (err) {
+          notifications.show({
+            title: <Title order={4}>Error</Title>,
+            message: <Text>{err.message} at {err.stack}</Text>,
+            color: "red",
+          });
+          throw Error(err.message);
+        } 
 
         removeSubscription(topic);
         notifications.show({
           title: <Title order={4}>Unsubscribed</Title>,
-          message: <Text>Succesfully unsubcribed from {topic}</Text>,
+          message: <Text>Succesfully unsubscribed from <strong>{topic}</strong></Text>,
         });
       });
     }
