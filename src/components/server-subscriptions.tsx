@@ -35,7 +35,7 @@ export default function ServerSubscriptions() {
 
     const { topic, qos } = form.values;
     const isAlreadySubscribed = subscriptions.find(
-      (subscription) => subscription.topic === topic,
+      (subscription) => subscription.topic === topic
     );
 
     if (isAlreadySubscribed) {
