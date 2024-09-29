@@ -6,7 +6,7 @@ import { IconChevronRight, IconMessageX } from "./ui/icons";
 export const MessageHistory = memo(function MessageHistory() {
   const messages = useMqttClient((state: State & Actions) => state.messages);
   const clearMessages = useMqttClient(
-    (state: State & Actions) => state.clearMessages,
+    (state: State & Actions) => state.clearMessages
   );
 
   return (
@@ -32,6 +32,7 @@ export const MessageHistory = memo(function MessageHistory() {
           </Timeline.Item>
         ))}
       </Timeline>
+      {messages.length === 0 && <Text>No message received.</Text>}
       {messages.length > 0 && (
         <Button
           mt="lg"
