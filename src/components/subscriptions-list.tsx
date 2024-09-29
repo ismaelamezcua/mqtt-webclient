@@ -40,6 +40,7 @@ export const SubscriptionsList = memo(function SubscriptionsList() {
       <Title order={4} mb="sm">
         Subscriptions
       </Title>
+      {subscriptions.length === 0 && <Text>No current subscriptions.</Text>}
       <Timeline
         lineWidth={2}
         radius="lg"
