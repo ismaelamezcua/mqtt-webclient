@@ -156,7 +156,7 @@ export default function ServerConnection() {
               </Grid.Col>
               <Grid.Col span={{ base: 12, sm: 4 }}>
                 <PasswordInput
-                  label="Passowrd"
+                  label="Password"
                   {...form.getInputProps("password")}
                 />
               </Grid.Col>
